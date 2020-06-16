@@ -37,7 +37,6 @@ use Laratrust\Traits\LaratrustUserTrait;
  */
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
     use Notifiable;
 
     /**
@@ -46,7 +45,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','locked_at','ids_roles'
     ];
 
     /**
@@ -65,5 +64,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'ids_roles'         => 'array',
     ];
 }

@@ -11,7 +11,8 @@
         <div class="card-header">
             <div class="col-md-12" role="group" aria-label="Basic example">
                 <div class="card-tools text-md-right">
-                    <button type="button" class="btn btn-outline-success btn-sm">Создать пользователя</button>
+                    <a type="button" href="{{route('users.create')}}" class="btn btn-outline-success btn-sm">Создать
+                        пользователя</a>
                 </div>
             </div>
         </div>
@@ -32,13 +33,22 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{$user->id}}</td>
-                            <td><a href="#">{{$user->name}}</a></td>
+                            <td><a href="{{route('users.edit',$user->id)}}">{{$user->name}}</a></td>
                             <td>{{$user->email}}</td>
                             <td @if($user->locked_at)class="text-center alert-dark"@endif>@if($user->locked_at)<i
                                     class="alert-dark fas fa-times"></i>@endif</td>
-                            <td class="text-center"><a href="" class="btn btn-outline-success btn-sm"><i
-                                        class="far fa-edit"></i></a><a href="" class="btn btn-outline-danger btn-sm"><i
-                                        class="far fa-minus-square"></i></a></td>
+                            <td class="text-center"><a href="{{route('users.edit',$user->id)}}"
+                                                       class="btn btn-outline-success btn-sm"><i
+                                        class="far fa-edit"></i></a>
+                                @if($user->locked_at)
+                                    <a href="{{route('users.unlock',$user->id)}}"
+                                       class="btn btn-outline-warning btn-sm"><i
+                                            class="far fa-minus-square"></i></a>
+                                @else<a href="{{route('users.lock',$user->id)}}"
+                                                                       class="btn btn-outline-danger btn-sm"><i
+                                        class="far fa-minus-square"></i></a>
+                                @endif
+                            </td>
                         <tr>
                     @endforeach
                     </tbody>

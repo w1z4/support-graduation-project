@@ -16,14 +16,14 @@ class Start extends Migration
         Schema::create('requests_statuses', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->char('title', 255);
-            $table->timestamp('created_at');
             $table->timestamp('deleted_at')->nullable();
+            $table->timestamps();
         });
         Schema::create('requests_priorities', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->char('title', 255);
-            $table->timestamp('created_at');
             $table->timestamp('deleted_at')->nullable();
+            $table->timestamps();
         });
         Schema::create('requests', function (Blueprint $table) {
             $table->id()->autoIncrement();
@@ -37,8 +37,8 @@ class Start extends Migration
             $table->foreign('id_priority')->references('id')->on('requests_priorities');
             $table->text('description');
             $table->char('title', 255);
-            $table->timestamp('created_at');
             $table->timestamp('closed_at')->nullable();
+            $table->timestamps();
         });
         Schema::create('comments_on_requests', function (Blueprint $table) {
             $table->id()->autoIncrement();
@@ -47,7 +47,16 @@ class Start extends Migration
             $table->foreign('id_user')->references('id')->on('users');
             $table->bigInteger('id_request');
             $table->foreign('id_request')->references('id')->on('requests');
-            $table->timestamp('created_at');
+            $table->timestamps();
+        });
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id()->autoIncrement();
+            $table->char('title', 255);
+            $table->timestamp('deleted_at')->nullable();
+            $table->timestamps();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->jsonb('ids_roles')->nullable();
         });
     }
 

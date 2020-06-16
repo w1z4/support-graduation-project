@@ -3,13 +3,13 @@
 @section('title', 'АН Курс')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Договор - 3</h1>
+    <h1 class="m-0 text-dark">Пользователь - {{$user->name}}</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            Основные данные
+            Данные пользователя
             <div class="col-md-12" role="group" aria-label="Basic example">
                 <div class="card-tools text-md-right">
                     {{--                    <button type="button" class="btn btn-outline-success ">Добавить</button>--}}
@@ -17,46 +17,60 @@
                 </div>
             </div>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-default-secondary alert-dismissible fade show" role="alert">
 
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="card-body">
             <div class="col-12">
-                <form>
+                <form action="{{route('users.update',$user->id)}}" id="update-user" method="post">
+                    @csrf
+                    @method('put')
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Дата завержения</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="2020-05-07">
+                        <label for="exampleFormControlInput1">Имя</label>
+                        <input name="name" type="text" class="form-control" id="exampleFormControlInput1"
+                               placeholder="Отображаемое имя пользователя" value="{{$user->name}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Клиент</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Иванов Иван Сергеевич</option>
-                            <option>Петров Сергей Иванович</option>
-                            <option>Иванчук Алексей Федотович</option>
-                            <option>Андропенко Алия Ивановна</option>
-                        </select>
+                        <label for="exampleFormControlInput1">Email</label>
+                        <input name="email" type="email" class="form-control" id="exampleFormControlInput1"
+                               value="{{$user->email}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect2">Риэлтор</label>
-                        <select class="form-control" id="exampleFormControlSelect2">
-                            <option>Сердюк Ангелина Ивановна</option>
-                            <option>Алёшин Павел Сергеевич</option>
-                            <option>Петров Армен Алексеевич</option>
-                        </select>
+                        <label for="exampleFormControlInput1">Новый пароль</label>
+                        <input name="password" type="password" class="form-control" id="exampleFormControlInput1"
+                               placeholder="Введите новый пароль или оставить пустым">
                     </div>
-                    <div class="form-group pull-right">
-                        <label for="exampleFormControlInput1">Подписан</label>
-                        <input type="checkbox" class="form-control" placeholder="name@example.com">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Блоировка</label>
+                        <input name="locked_at" type="checkbox"
+                               {{($user->locked_at)?'checked':''}} id="exampleFormControlInput1"
+                               placeholder="Новый пароль или оставить пустым">
+                        @if($user->locked_at)
+                            <p class="alert-danger">Дата блокировки: {{$user->locked_at}}</p>
+                        @endif
                     </div>
 
                     <div class="card-tools text-md-right">
-                        <button type="button" class="btn btn-outline-success ">Сохранить договор</button>
+                        <button form="update-user" type="submit" class="btn btn-outline-success">Сохранить
+                            пользователя
+                        </button>
                         {{--                    <button type="button" class="btn btn-outline-dark">Поиск</button>--}}
                     </div>
                 </form>
             </div>
         </div>
-    </div><div class="card">
+    </div>
+    <div class="card">
         <div class="card-header">
-            Условия
+            Роли пользователя
             <div class="col-md-12" role="group" aria-label="Basic example">
                 <div class="card-tools text-md-right">
                     {{--                    <button type="button" class="btn btn-outline-success ">Добавить</button>--}}
@@ -65,36 +79,33 @@
             </div>
         </div>
 
-        <div class="card-body">
-            <div class="col-12">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Цена ₽</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="1000000">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Услуга</label>
-                        <select multiple class="form-control" id="exampleFormControlSelect1">
-                            <option>Аренда</option>
-                            <option>Продажа</option>
-                            <option>Покупка</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect2">Недвижимость</label>
-                        <select class="form-control" id="exampleFormControlSelect2">
-                            <option>Москва, Мира, дом 2</option>
-                            <option>Алёшин Павел Сергеевич</option>
-                            <option>Петров Армен Алексеевич</option>
-                        </select>
-                    </div>
-
-                    <div class="card-tools text-md-right">
-                        <button type="button" class="btn btn-outline-success ">Сохранить условия договора</button>
-                        {{--                    <button type="button" class="btn btn-outline-dark">Поиск</button>--}}
-                    </div>
-                </form>
+        @if(!empty($roles))
+            <div class="card-body">
+                <div class="col-12">
+                    <form action="{{route('users.permissions.update',$user->id)}}" id="user-permissions-update"
+                          method="post">
+                        @csrf
+                        @method('put')
+                        <div class="flex flex-wrap justify-start mb-4">
+                            @foreach($roles as $role)
+                                <label class="inline-flex items-center mr-6 my-2 text-sm " style="flex: 1 0 20%;">
+                                    <input {{in_array($role->id,$user->ids_roles)?'checked':''}} type="checkbox" class="form-checkbox h-4 w-4" name="roles[]"
+                                           value="{{$role->id}}">
+                                    <span class="ml-2">
+                {{$role->title}}
+              </span>
+                                </label>
+                            @endforeach
+                        </div>
+                        <div class="card-tools text-md-right">
+                            <button form="user-permissions-update" type="submit" class="btn btn-outline-success ">
+                                Сохранить
+                                права пользователя
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @stop
