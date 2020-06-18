@@ -11,7 +11,7 @@
         <div class="card-header">
             <div class="col-md-12" role="group" aria-label="Basic example">
                 <div class="card-tools text-md-right small">
-                    <a href="{{route('requests.create')}}" type="button" class="btn btn-outline-success btn-sm">Создать заявку</a>
+                    <a href="{{route('usersRequests.create')}}" type="button" class="btn btn-outline-success btn-sm">Создать заявку</a>
                 </div>
             </div>
         </div>
@@ -38,12 +38,12 @@
                             <td>{{$request->id}}</td>
                             <td>{{$request->status->title}}</td>
                             <td>{{$request->priority->title}}</td>
-                            <td><a href="#">{{$request->title}}</a></td>
+                            <td><a href="{{route('usersRequests.show',$request->id)}}">{{$request->title}}</a></td>
                             <td>{{$request->creator->name}}</td>
-                            <td>{{$request->responsible->name}}</td>
+                            <td>{{($request->responsible)?$request->responsible->name:'не назначен'}}</td>
                             <td>{{$request->created_at}}</td>
                             <td>{{$request->closed_at}}</td>
-                            <td class="text-center"><a href="{{route('requests.edit',[$request->id])}}" class="btn btn-outline-success btn-sm"><i class="far fa-edit"></i></a> </td>
+                            <td class="text-center"><a href="{{route('usersRequests.edit',$request->id)}}" class="btn btn-outline-success btn-sm"><i class="far fa-edit"></i></a> </td>
                         <tr>
                     @endforeach
 

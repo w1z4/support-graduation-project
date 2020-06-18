@@ -18,29 +18,46 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                                                $closed_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Users[] $creator
  * @property-read int|null                                              $creator_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereClosedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereIdCreator($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereIdPriority($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereIdResponsible($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereIdStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Requests whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereClosedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereIdCreator($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereIdPriority($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereIdResponsible($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereIdStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\UsersRequest whereTitle($value)
  * @mixin \Eloquent
  */
-class Requests extends Model
+class UsersRequest extends Model
 {
     protected $table = 'requests';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id',
+        'id_creator',
+        'id_responsible',
+        'id_status',
+        'id_priority',
+        'description',
+        'title',
+        'closed_at',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function creator()
     {
-        return $this->hasOne('App\Users', 'id', 'id_creator');
+        return $this->hasOne('App\User', 'id', 'id_creator');
     }
 
     /**
@@ -48,7 +65,7 @@ class Requests extends Model
      */
     public function responsible()
     {
-        return $this->hasOne('App\Users', 'id', 'id_responsible');
+        return $this->hasOne('App\User', 'id', 'id_responsible');
     }
 
     /**
@@ -72,6 +89,6 @@ class Requests extends Model
      */
     public function comments()
     {
-        return $this->hasMany('App\CommentsOnRequests', 'id_request', 'id');
+        return $this->hasMany('App\CommentsOnRequest', 'id_request', 'id')->orderBy('created_at','desc');
     }
 }

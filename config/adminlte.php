@@ -228,7 +228,7 @@ return [
         ['header' => 'Меню'],
         [
             'text' => 'Заявки',
-            'url'  => '/requests',
+            'url'  => '/usersRequests',
             'icon' => 'fas fa-fw fa-folder',
         ],
         ['header' => 'Настройки'],

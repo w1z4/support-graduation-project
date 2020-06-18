@@ -29,7 +29,7 @@ class Start extends Migration
             $table->id()->autoIncrement();
             $table->bigInteger('id_creator');
             $table->foreign('id_creator')->references('id')->on('users');
-            $table->bigInteger('id_responsible');
+            $table->bigInteger('id_responsible')->nullable();
             $table->foreign('id_responsible')->references('id')->on('users');
             $table->bigInteger('id_status');
             $table->foreign('id_status')->references('id')->on('requests_statuses');

@@ -73,11 +73,6 @@ class UsersController extends Controller
     {
     }
 
-    public function permissions()
-    {
-
-    }
-
     public function permissionsUpdate(User $user, Request $request)
     {
         if ($request->has('roles')) {

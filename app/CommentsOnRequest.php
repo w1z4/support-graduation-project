@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentsOnRequests extends Model
+class CommentsOnRequest extends Model
 {
-
+    protected $fillable = ['comment','id_user', 'id_request'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function author()
     {
-        return $this->hasOne('App\Users', 'id', 'id_user');
+        return $this->hasOne('App\User', 'id', 'id_user');
     }
 }

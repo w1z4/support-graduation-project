@@ -20,17 +20,23 @@
 
         <div class="card-body">
             <div class="col-12">
-                <form action="{{route('requests.store')}}" method="post">
+                <form action="{{route('usersRequests.store')}}" id="request-create" method="post">
+                    @csrf
+                    @method('post')
                     <div class="form-group">
                         <label for="id_status">Статус заявки</label>
                         <select class="form-control" id="id_status" name="id_status">
-                            <option value="1">Новая</option>
+                            @foreach($requestStatuses as $status)
+                            <option value="{{$status->id}}">{{$status->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="id_status">Приоритет заявки</label>
-                        <select class="form-control" id="id_status" name="id_status">
-                            <option value="3">Высокий</option>
+                        <select class="form-control" id="id_status" name="id_priority">
+                            @foreach($requestsPriorities as $priority)
+                            <option value="{{$priority->id}}">{{$priority->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -43,16 +49,16 @@
                         <textarea required class="form-control" name="description" id="description"
                                   placeholder="Основное описание заявки"></textarea>
                     </div>
-                    @role('admin')
 
                     <div class="form-group">
                         <label for="closed_at">Дата закрытия</label>
                         <input type="datetime-local" class="form-control" id="closed_at" name="closed_at"
-                               placeholder="2020-06-05 04:04:32" required>
+                               placeholder="2020-06-05 04:04:32">
                     </div>
-                    @endrole
                     <div class="card-tools text-md-right">
-                        <button type="submit" class="btn btn-outline-success btn-sm">Добавить заявку</button>
+                        <button form="request-create" type="submit" class="btn btn-outline-success btn-sm">Добавить
+                            заявку
+                        </button>
                     </div>
                 </form>
             </div>

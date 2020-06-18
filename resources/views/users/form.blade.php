@@ -89,7 +89,7 @@
                         <div class="flex flex-wrap justify-start mb-4">
                             @foreach($roles as $role)
                                 <label class="inline-flex items-center mr-6 my-2 text-sm " style="flex: 1 0 20%;">
-                                    <input {{in_array($role->id,$user->ids_roles)?'checked':''}} type="checkbox" class="form-checkbox h-4 w-4" name="roles[]"
+                                    <input {{!empty($user->ids->roles)&&in_array($role->id,$user->ids_roles)?'checked':''}} type="checkbox" class="form-checkbox h-4 w-4" name="roles[]"
                                            value="{{$role->id}}">
                                     <span class="ml-2">
                 {{$role->title}}

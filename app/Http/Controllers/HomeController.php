@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Requests;
+use App\UsersRequest;
 
 class HomeController extends Controller
 {
@@ -22,6 +22,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home',  ['requests' => Requests::all()]);
+        return view('home',  ['requests' => UsersRequest::all()]);
     }
 }

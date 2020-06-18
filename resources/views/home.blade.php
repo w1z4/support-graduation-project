@@ -38,7 +38,7 @@
                                     <td>{{$request->priority->title}}</td>
                                     <td>{{$request->title}}</td>
                                     <td>{{$request->creator->name}}</td>
-                                    <td>{{$request->responsible->name}}</td>
+                                    <td>{{($request->responsible)?$request->responsible->name:'не назначен'}}</td>
                                     <td>{{$request->created_at}}</td>
                                     <td>{{$request->closed_at}}</td>
                                 <tr>
