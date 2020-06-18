@@ -16,16 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('home', 'HomeController@index')->name('home');
 \Illuminate\Support\Facades\Auth::routes();
+
 Route::resource('users', 'UsersController')->except(['destroy']);
 Route::get('users/{user}/lock', 'UsersController@lock')->name('users.lock');
 Route::get('users/{user}/unlock', 'UsersController@unlock')->name('users.unlock');
 Route::put('users/{user}/roles', 'UsersController@permissionsUpdate')->name('users.permissions.update');
+
 Route::resource('roles', 'RolesController');
+
 Route::resource('usersRequests', 'UsersRequestsController')->except(['destroy']);
 Route::post('usersRequests/{usersRequest}/comments/store', 'CommentsOnRequestsController@store')->name('comments.store');
-// Route::resource('usersRequests/{usersRequest}/comment', 'CommentsOnRequestsController')->except(['destroy','create','edit']);
 Route::get('usersRequests/{usersRequest}/close', 'UsersRequestsController@usersRequests')->name('usersRequests.close');
-Route::get('statuses', 'RequestsStatusesController@index')->name('statuses');
+
+Route::resource('requestsStatuses', 'RequestsStatusesController');
+
 Route::get('priorities', 'RequestsPrioritiesController@index')->name('priorities');
 // Route::get('requests', 'RequestsController@index')->name('requests');
 // Route::get('realtors', function () {

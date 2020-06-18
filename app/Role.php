@@ -2,12 +2,12 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laratrust\Models\LaratrustRole;
 
-class Role extends LaratrustRole
+class Role extends Model
 {
     use SoftDeletes;
 
-    public $guarded = [];
+    public $fillable=['created_at','title'];
 }

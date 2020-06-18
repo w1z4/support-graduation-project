@@ -81,7 +81,7 @@ class UsersRequest extends Model
      */
     public function status()
     {
-        return $this->hasOne('App\RequestsStatuses', 'id', 'id_status');
+        return $this->hasOne('App\RequestsStatus', 'id', 'id_status');
     }
 
     /**

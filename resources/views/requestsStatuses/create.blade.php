@@ -3,7 +3,7 @@
 @section('title', 'Создание статуса')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Редактирование статуса - {{$requestsStatus->title}}</h1>
+    <h1 class="m-0 text-dark">Создание статуса</h1>
 @stop
 
 @section('content')
@@ -31,16 +31,16 @@
 
         <div class="card-body">
             <div class="col-12">
-                <form id="update-status" action="{{route('requestsStatuses.update',$requestsStatus->id)}}" method="post">
+                <form id="create-status" action="{{route('requestsStatuses.store')}}" method="post">
                     @csrf
-                    @method('put')
+                    @method('post')
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Название</label>
                         <input name="title" type="text" class="form-control" id="exampleFormControlInput1"
-                               placeholder="Отображаемое название статуса" value="{{$requestsStatus->title}}">
+                               placeholder="Отображаемое название статуса">
                     </div>
                     <div class="card-tools text-md-right">
-                        <button form="update-status" type="submit" class="btn btn-outline-success">Обновить статус</button>
+                        <button form="create-status" type="submit" class="btn btn-outline-success">Сохранить статус</button>
                     </div>
                 </form>
             </div>

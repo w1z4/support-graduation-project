@@ -1,15 +1,26 @@
 @extends('adminlte::page')
 
-@section('title', 'АН Курс')
+@section('title', 'Создание роли')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Новая заявка</h1>
+    <h1 class="m-0 text-dark">Создание роли</h1>
 @stop
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-default-secondary alert-dismissible fade show" role="alert">
+
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="card">
         <div class="card-header">
-            Данные заявки
+            Данные роли
             <div class="col-md-12" role="group" aria-label="Basic example">
                 <div class="card-tools text-md-right">
                     {{--                    <button type="button" class="btn btn-outline-success ">Добавить</button>--}}
@@ -20,39 +31,16 @@
 
         <div class="card-body">
             <div class="col-12">
-                <form action="{{route('requests.store')}}" method="post">
+                <form id="create-role" action="{{route('roles.store')}}" method="post">
+                    @csrf
+                    @method('post')
                     <div class="form-group">
-                        <label for="id_status">Статус заявки</label>
-                        <select class="form-control" id="id_status" name="id_status">
-                            <option value="1">Новая</option>
-                        </select>
+                        <label for="exampleFormControlInput1">Название</label>
+                        <input name="title" type="text" class="form-control" id="exampleFormControlInput1"
+                               placeholder="Отображаемое название роли">
                     </div>
-                    <div class="form-group">
-                        <label for="id_status">Приоритет заявки</label>
-                        <select class="form-control" id="id_status" name="id_status">
-                            <option value="3">Высокий</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Заголовок</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                               placeholder="Заголовок заявки (краткое и ёмкое описание)" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Описание заявки</label>
-                        <textarea required class="form-control" name="description" id="description"
-                                  placeholder="Основное описание заявки"></textarea>
-                    </div>
-                    @role('admin')
-
-                    <div class="form-group">
-                        <label for="closed_at">Дата закрытия</label>
-                        <input type="datetime-local" class="form-control" id="closed_at" name="closed_at"
-                               placeholder="2020-06-05 04:04:32" required>
-                    </div>
-                    @endrole
                     <div class="card-tools text-md-right">
-                        <button type="submit" class="btn btn-outline-success ">Отправить заявку</button>
+                        <button form="create-role" type="submit" class="btn btn-outline-success">Сохранить роль</button>
                     </div>
                 </form>
             </div>

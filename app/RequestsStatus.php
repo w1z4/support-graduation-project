@@ -3,14 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\RequestsStatuses
  *
- * @property int $id
- * @property string $title
+ * @property int                        $id
+ * @property string                     $title
  * @property \Illuminate\Support\Carbon $created_at
- * @property string|null $deleted_at
+ * @property string|null                $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\RequestsStatuses newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\RequestsStatuses newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\RequestsStatuses query()
@@ -20,7 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\RequestsStatuses whereTitle($value)
  * @mixin \Eloquent
  */
-class RequestsStatuses extends Model
+class RequestsStatus extends Model
 {
-    //
+    use SoftDeletes;
+
+    public $fillable = ['created_at', 'title'];
 }

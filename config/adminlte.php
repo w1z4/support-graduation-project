@@ -244,7 +244,7 @@ return [
         ],
         [
             'text' => 'Статусы заявок',
-            'url'  => '/statuses',
+            'url'  => '/requestsStatuses',
             'icon' => 'fas fa-calendar-check',
         ],
         [
