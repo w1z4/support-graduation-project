@@ -30,7 +30,7 @@ Route::get('usersRequests/{usersRequest}/close', 'UsersRequestsController@usersR
 
 Route::resource('requestsStatuses', 'RequestsStatusesController');
 
-Route::get('priorities', 'RequestsPrioritiesController@index')->name('priorities');
+Route::resource('requestsPriorities', 'RequestsPrioritiesController');
 // Route::get('requests', 'RequestsController@index')->name('requests');
 // Route::get('realtors', function () {
 //     return view('welcome');

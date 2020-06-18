@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\RequestsPriorities
@@ -20,7 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\RequestsPriorities whereTitle($value)
  * @mixin \Eloquent
  */
-class RequestsPriorities extends Model
+class RequestsPriority extends Model
 {
-    //
+    use SoftDeletes;
+
+    public $fillable = ['created_at', 'title'];
 }

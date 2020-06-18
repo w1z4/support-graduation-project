@@ -73,7 +73,7 @@ class UsersRequest extends Model
      */
     public function priority()
     {
-        return $this->hasOne('App\RequestsPriorities', 'id', 'id_priority');
+        return $this->hasOne('App\RequestsPriority', 'id', 'id_priority');
     }
 
     /**

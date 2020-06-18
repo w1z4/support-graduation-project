@@ -249,7 +249,7 @@ return [
         ],
         [
             'text' => 'Приоритеты',
-            'url'  => '/priorities',
+            'url'  => '/requestsPriorities',
             'icon' => 'fas fa-align-justify',
         ],
         // [

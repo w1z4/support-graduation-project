@@ -11,11 +11,11 @@
         <div class="card-header">
             <div class="col-md-12" role="group" aria-label="Basic example">
                 <div class="card-tools text-md-right">
-                    <button type="button" class="btn btn-outline-success btn-sm">Создать приоритет</button>
+                    <a href="{{route('requestsPriorities.create')}}" type="button" class="btn btn-outline-success btn-sm">Создать приоритет</a>
                 </div>
             </div>
         </div>
-
+        <form id="del-role" method="post">@csrf @method('delete')</form>
         <div class="card-body">
             <div class="col-12">
                 <table id="example" class="table table-striped table-bordered table-sm" style="width:100%">
@@ -30,10 +30,12 @@
                     @foreach ($requestsPriorities as $requestsPriority)
                         <tr>
                             <td>{{$requestsPriority->id}}</td>
-                            <td><a href="#">{{$requestsPriority->title}}</a></td>
-                            <td class="text-center"><a href="" class="btn btn-outline-success btn-sm"><i
-                                        class="far fa-edit"></i></a><a href="" class="btn btn-outline-danger btn-sm"><i
-                                        class="far fa-minus-square"></i></a></td>
+                            <td><a href="{{route('requestsPriorities.edit',$requestsPriority->id)}}">{{$requestsPriority->title}}</a></td>
+                            <td class="text-center"><a href="{{route('requestsPriorities.edit',$requestsPriority->id)}}" class="btn btn-outline-success btn-sm"><i
+                                        class="far fa-edit"></i></a>
+                                <button form="del-role" formaction="{{route('requestsPriorities.destroy',$requestsPriority->id)}}"
+                                        class="btn btn-outline-danger btn-sm"><i
+                                        class="far fa-minus-square"></i></button></td>
                         <tr>
                     @endforeach
                     </tbody>
